@@ -1,0 +1,8 @@
+
+# Ignore ALL files in this folder
+# This folder is only for files that are created by "npm run build"
+*
+
+# However, do allow the "DO NOT PUT ANY FILES IN THIS FOLDER" file
+!DO NOT PUT ANY FILES IN THIS FOLDER - This is for auto-generated files only.txt
+!.gitignore
