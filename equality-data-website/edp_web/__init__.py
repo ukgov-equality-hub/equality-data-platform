@@ -76,6 +76,14 @@ def create_app(test_config=None):
     from edp_web.home import home
     app.register_blueprint(home)
 
+    # Login pages
+    from edp_web.login import login
+    app.register_blueprint(login)
+
+    # Output (i.e. reports or publications)
+    from edp_web.output import output
+    app.register_blueprint(output)
+
     # Allow additional "/assets" URL for static assets
     from edp_web.assets import assets
     app.register_blueprint(assets)
