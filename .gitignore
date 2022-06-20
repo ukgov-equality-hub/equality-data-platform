@@ -1,0 +1,10 @@
+# Developer-specific settings
+.vscode/settings.json
+.idea
+
+# Secrets
+.env
+
+# Dependencies
+node_modules
+__pycache__
