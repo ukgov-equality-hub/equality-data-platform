@@ -1,0 +1,71 @@
+name: 'Run python unit tests'
+
+on: [push]
+
+env:
+  FLASK_ENV: production
+  FLASK_DEBUG: 1
+  FLASK_APP: edp
+  LOG_LEVEL: DEBUG
+  TEST_URL: http://localhost:8080
+  BUCKET_NAME: ${{ secrets.AUTOMATED_TEST_BUCKET_NAME }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AUTOMATED_TEST_AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AUTOMATED_TEST_AWS_SECRET_ACCESS_KEY }}
+  AWS_REGION: eu-west-2
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8"]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: 'Install the Nods.JS dependencies'
+        run: |
+          npm ci
+        working-directory: ./equality-data-website
+
+      - name: 'Build the CSS and JS files'
+        run: |
+          npm run build
+        working-directory: ./equality-data-website
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 pytest
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        working-directory: ./equality-data-website
+
+#      - name: Install Playwright and browsers
+#        run: |
+#          pip install playwright pytest-playwright asyncio
+#          pip install -e .
+#          python -m playwright install --with-deps
+#
+#      - name: Database init
+#        run: |
+#          python setup-db.py
+#
+#      - name: Database migration
+#        run: |
+#          flask db stamp head
+#          flask db migrate
+#          flask db upgrade
+
+      - name: Start site
+        run: |
+          waitress-serve --call 'edp_web:create_app' &
+        working-directory: ./equality-data-website
+
+      - name: Test with pytest
+        run: |
+          pytest -s --show-capture=all
+        working-directory: ./equality-data-website
