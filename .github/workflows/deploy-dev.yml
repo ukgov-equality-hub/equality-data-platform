@@ -1,0 +1,17 @@
+name: 'Deploy (dev)'
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency: ${{ github.workflow }}  # Prevents more than one instance of this workflow running at the same time
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/_deploy-shared.yml
+    with:
+      environment: 'dev'
+    secrets:
+      cf_username: ${{ secrets.CF_USERNAME }}
+      cf_password: ${{ secrets.CF_PASSWORD }}

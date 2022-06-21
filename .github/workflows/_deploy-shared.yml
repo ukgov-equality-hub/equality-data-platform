@@ -1,0 +1,53 @@
+name: '(shared functionality) Deploy'
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+    secrets:
+      cf_username:
+        required: true
+      cf_password:
+        required: true
+
+jobs:
+  deploy:
+    name: 'Deploy to PaaS'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'Checkout Code'
+        uses: actions/checkout@v3
+
+      - name: 'Save build run info to JSON file'
+        run: |
+          echo '{ "git_commit": "${{ github.sha }}", "git_branch": "${{ github.ref_name }}", "github_action_name": "${{ github.workflow }}", "github_action_run_url": "https://github.com/cabinetoffice/equality-data-platform/actions/runs/${{ github.run_id }}/attempts/${{ github.run_attempt }}" }' > build-info.json
+        working-directory: ./equality-data-website
+
+      - name: 'Install the Nods.JS dependencies'
+        run: |
+          npm ci
+        working-directory: ./equality-data-website
+
+      - name: 'Build the CSS and JS files'
+        run: |
+          npm run build
+        working-directory: ./equality-data-website
+
+      - name: 'Install the Cloud Foundry CLI'
+        run: |
+          wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
+          echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
+          sudo apt-get update
+          sudo apt-get install cf7-cli
+
+      - name: 'Login to Gov.UK PaaS'
+        run: |
+          cf login -a api.london.cloud.service.gov.uk -u ${{ secrets.cf_username }} -p '${{ secrets.cf_password }}' -o 'co-equality-data-platform' -s 'edp-${{ inputs.environment }}'
+
+      - name: 'Deploy equality data website to Gov.UK PaaS'
+        run: |
+          cf push "equality-data-platform-${{ inputs.environment }}" --manifest manifest.yml --strategy rolling
+        working-directory: ./equality-data-website
