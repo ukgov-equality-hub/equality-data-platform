@@ -60,15 +60,15 @@ def create_app(test_config=None):
     def add_header(response):
         response.headers['X-Frame-Options'] = 'deny'
         response.headers['X-Content-Type-Options'] = 'nosniff'
-        response.headers['Content-Security-Policy'] = "default-src 'self'; " \
-                                                        "script-src 'self' 'unsafe-inline'; " \
-                                                        "script-src-elem 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; " \
-                                                        "script-src-attr 'self' 'unsafe-inline'; " \
-                                                        "style-src 'self' 'unsafe-inline'; " \
-                                                        "img-src 'self'; " \
-                                                        "font-src 'self'; " \
-                                                        "connect-src 'self' https://www.google-analytics.com; " \
-                                                        "form-action 'self';"
+        # response.headers['Content-Security-Policy'] = "default-src 'self'; " \
+        #                                                 "script-src 'self' 'unsafe-inline'; " \
+        #                                                 "script-src-elem 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; " \
+        #                                                 "script-src-attr 'self' 'unsafe-inline'; " \
+        #                                                 "style-src 'self' 'unsafe-inline'; " \
+        #                                                 "img-src 'self'; " \
+        #                                                 "font-src 'self'; " \
+        #                                                 "connect-src 'self' https://www.google-analytics.com; " \
+        #                                                 "form-action 'self';"
 
         return response
 
