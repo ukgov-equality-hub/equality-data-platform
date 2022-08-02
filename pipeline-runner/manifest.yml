@@ -1,0 +1,5 @@
+---
+applications:
+  - buildpacks:
+    - python_buildpack
+    command: bash ./run_paas.sh
