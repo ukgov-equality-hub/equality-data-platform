@@ -1,0 +1,282 @@
+{% extends 'base.html' %}
+
+{% block title %}School teacher workforce survey (2021){% endblock %}
+
+{% block backLink %}
+    <div class="govuk-breadcrumbs">
+        <ol class="govuk-breadcrumbs__list">
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="{{ url_for('home.index') }}">
+                    Home
+                </a>
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="{{ url_for('home.data_store') }}">
+                    Data Store files
+                </a>
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="#">
+                    School teacher workforce survey
+                </a>
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="{{ url_for('home.data_store_file_group_1_2021') }}">
+                    2021
+                </a>
+            </li>
+        </ol>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+
+            <h1 class="govuk-heading-l">
+                School teacher workforce survey - 2021
+            </h1>
+
+            <h2 class="govuk-heading-m">
+                Description
+            </h2>
+            <p class="govuk-body">
+                An annual publication by the Department for Education surveying teachers about [...]
+            </p>
+
+            <h2 class="govuk-heading-m govuk-!-margin-top-6">
+                Source files
+            </h2>
+            <ul class="govuk-list govuk-list--bullet">
+                <li class="govuk-!-margin-bottom-2">
+                    <a href="#" class="govuk-link govuk-link--no-visited-state">
+                        school-teacher-workforce.csv
+                    </a><br>
+                    <small>
+                        CSV, 1,215,112 bytes
+                    </small><br>
+                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <small>
+                            Downloaded from
+                            <a href="https://www.gov.uk/government/collections/statistics-school-workforce/school-teacher-workforce.csv"
+                               class="govuk-link govuk-link--no-visited-state govuk-link--no-underline">
+                                <i>https://www.gov.uk/government/collections/statistics-school-workforce/school-teacher-workforce.csv</i>
+                            </a>
+                        </small>
+                    </div>
+                    <small>
+                        on <i>Fri 1st Jul 2022 at 10:32</i>
+                    </small><br>
+                    <small>
+                        <b>3</b> versions. <a href="#" class="govuk-link govuk-link--no-visited-state">See previous versions</a>
+                    </small><br>
+                </li>
+                <li class="govuk-!-margin-bottom-2">
+                    <a href="#" class="govuk-link govuk-link--no-visited-state">
+                        list-of-schools.csv
+                    </a><br>
+                    <small>
+                        CSV, 583,106 bytes
+                    </small><br>
+                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <small>
+                            Downloaded from
+                            <a href="#"
+                               class="govuk-link govuk-link--no-visited-state govuk-link--no-underline">
+                                <i>https://content.explore-education-statistics.service.gov.uk/api/releases/01525efe-798d-4373-5fc9-08da1877cf54/files</i>
+                            </a>
+                        </small>
+                    </div>
+                    <small>
+                        on <i>Mon 4th Jul 2022 at 09:27</i>
+                    </small>
+                </li>
+                <li class="govuk-!-margin-bottom-2">
+                    <a href="#" class="govuk-link govuk-link--no-visited-state">
+                        qualifications-and-levels.csv
+                    </a><br>
+                    <small>
+                        CSV, 237,894 bytes
+                    </small><br>
+                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <small>
+                            Uploaded by <i>James Griffiths</i>
+                        </small>
+                    </div>
+                    <small>
+                        on <i>Tue 5th Jul 2022 at 16:52</i>
+                    </small>
+                </li>
+            </ul>
+            <p class="govuk-body">
+                <a href="{{ url_for('home.data_store_add_a_file') }}"
+                   class="govuk-link govuk-link--no-visited-state">
+                    Add a file
+                </a>
+            </p>
+            <div class="govuk-button-group">
+                <a class="govuk-button" href="{{ url_for('home.use_in_pipeline') }}">
+                    Use these files in a RAP pipeline
+                </a>
+            </div>
+
+
+            <h2 class="govuk-heading-m govuk-!-margin-top-8">
+                URLs to monitor
+            </h2>
+            <p class="govuk-body">
+                You will receive an email if any of these pages change
+            </p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>
+                    <small>
+                        <a href="https://www.gov.uk/government/collections/statistics-school-workforce"
+                           class="govuk-link govuk-link--no-visited-state">
+                            https://www.gov.uk/government/collections/statistics-school-workforce
+                        </a>
+                    </small>
+                </li>
+                <li>
+                    <small>
+                        <a href="https://www.gov.uk/government/statistics/school-workforce-in-england-november-2021"
+                           class="govuk-link govuk-link--no-visited-state">
+                            https://www.gov.uk/government/statistics/school-workforce-in-england-november-2021
+                        </a>
+                    </small>
+                </li>
+                <li>
+                    <small>
+                        <a href="https://content.explore-education-statistics.service.gov.uk/api/releases/01525efe-798d-4373-5fc9-08da1877cf54/files"
+                           class="govuk-link govuk-link--no-visited-state">
+                            https://content.explore-education-statistics.service.gov.uk/api/releases/01525efe-798d-4373-5fc9-08da1877cf54/files
+                        </a>
+                    </small>
+                </li>
+            </ul>
+            <div class="govuk-button-group">
+                <button class="govuk-button govuk-button--secondary" data-module="govuk-button">
+                    Edit this list
+                </button>
+
+                <a href="#" class="govuk-link govuk-link--no-visited-state">
+                    View history of changes
+                </a>
+            </div>
+
+
+            <h2 class="govuk-heading-m govuk-!-margin-top-8">
+                Processed files
+            </h2>
+            <h3 class="govuk-heading-s">
+                Pipeline:
+                <a href="#" class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-regular">
+                    My first RAP
+                </a>
+            </h3>
+            <div class="govuk-!-padding-left-4">
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>
+                        <a href="#" class="govuk-link govuk-link--no-visited-state">
+                            school-teacher-workforce-2.csv
+                        </a><br>
+                        <small>
+                            Generated by
+                            <a href="{{ url_for('home.pipeline_run', pipeline_slug='my-first-rap', run_number=11) }}"
+                               class="govuk-link govuk-link--no-visited-state govuk-link--no-underline">
+                                <i>My first RAP - run #11</i>
+                            </a><br>
+                            on Mon 1st Aug at 15:22
+                        </small>
+                    </li>
+                </ul>
+                <div class="govuk-button-group">
+                    <a class="govuk-button govuk-button--secondary" href="{{ url_for('home.use_in_pipeline') }}">
+                        Use these files in a RAP pipeline
+                    </a>
+                </div>
+            </div>
+            <h3 class="govuk-heading-s">
+                Pipeline:
+                <a href="#" class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-regular">
+                    School Workforce Survey: Pre-processing
+                </a>
+            </h3>
+            <div class="govuk-!-padding-left-4">
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>
+                        <a href="#" class="govuk-link govuk-link--no-visited-state">
+                            school-teacher-workforce-CLEAN.csv
+                        </a><br>
+                        <small>
+                            Generated by
+                            <a href="#" class="govuk-link govuk-link--no-visited-state govuk-link--no-underline">
+                                <i>School Workforce Survey: Pre-processing - run #23</i>
+                            </a><br>
+                            on Mon 1st Aug at 15:22
+                        </small>
+                    </li>
+                    <li>
+                        <a href="#" class="govuk-link govuk-link--no-visited-state">
+                            list-of-schools-CLEAN.csv
+                        </a><br>
+                        <small>
+                            Generated by
+                            <a href="#" class="govuk-link govuk-link--no-visited-state govuk-link--no-underline">
+                                <i>School Workforce Survey: Pre-processing - run #23</i>
+                            </a><br>
+                            on Mon 1st Aug at 15:22
+                        </small>
+                    </li>
+                    <li>
+                        <a href="#" class="govuk-link govuk-link--no-visited-state">
+                            qualifications-and-levels-CLEAN.csv
+                        </a><br>
+                        <small>
+                            Generated by
+                            <a href="#" class="govuk-link govuk-link--no-visited-state govuk-link--no-underline">
+                                <i>School Workforce Survey: Pre-processing - run #23</i>
+                            </a><br>
+                            on Mon 1st Aug at 15:22
+                        </small>
+                    </li>
+                </ul>
+                <div class="govuk-button-group">
+                    <a class="govuk-button govuk-button--secondary" href="{{ url_for('home.use_in_pipeline') }}">
+                        Use these files in a RAP pipeline
+                    </a>
+                </div>
+            </div>
+            <h3 class="govuk-heading-s">
+                Pipeline:
+                <a href="#" class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-regular">
+                    Stats about Bradford
+                </a>
+            </h3>
+            <div class="govuk-!-padding-left-4">
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>
+                        <a href="#" class="govuk-link govuk-link--no-visited-state">
+                            bradford-data-highlights.txt
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="govuk-link govuk-link--no-visited-state">
+                            bradford-schools.csv
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="govuk-link govuk-link--no-visited-state">
+                            bradford-employment.csv
+                        </a>
+                    </li>
+                </ul>
+                <div class="govuk-button-group">
+                    <a class="govuk-button govuk-button--secondary" href="{{ url_for('home.use_in_pipeline') }}">
+                        Use these files in a RAP pipeline
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

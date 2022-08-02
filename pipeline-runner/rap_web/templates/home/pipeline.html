@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block title %}Pipeline: {{ pipeline.name }}{% endblock %}
+
+{% block backLink %}
+    <div class="govuk-breadcrumbs">
+        <ol class="govuk-breadcrumbs__list">
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="{{ url_for('home.index') }}">
+                    Home
+                </a>
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="{{ url_for('home.branches') }}">
+                    Branches
+                </a>
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                {{ branch }}
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="{{ url_for('home.pipelines_for_branch', branch=branch) }}">
+                    Pipelines
+                </a>
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="{{ url_for('home.pipeline_info', branch=branch, pipeline_slug=pipeline.slug) }}">
+                    {{ pipeline.name }}
+                </a>
+            </li>
+        </ol>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+
+            <h1 class="govuk-heading-l">
+                Pipeline: {{ pipeline.name }}
+            </h1>
+
+            <h2 class="govuk-heading-m">
+                Pipeline steps
+            </h2>
+
+            {% if pipeline.steps %}
+                <ul class="govuk-list govuk-list--bullet">
+                    {% for step in pipeline.steps %}
+                        <li>
+                            {{ step.number }}:
+                            <a href="https://github.com/jamesgriff/raps/blob/{{ branch }}/pipelines/{{ pipeline.slug }}/{{ step.url_safe_filename }}"
+                               class="govuk-link">
+                                {{ step.name }}.{{ step.file_extension }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="govuk-body">
+                    No steps
+                </p>
+            {% endif %}
+
+            <p class="govuk-body">
+                <a href="{{ url_for('home.new_step', branch=branch, pipeline_slug=pipeline.slug) }}" class="govuk-link govuk-link--no-visited-state">
+                    Add a new step
+                </a>
+            </p>
+
+            <h2 class="govuk-heading-m">
+                Input files
+            </h2>
+            {% if branch != 'main' %}
+                <p class="govuk-body">
+                    From branch: {{ branch if pipeline.use_files_from_own_branch else 'main' }}
+                </p>
+            {% endif %}
+            {% if pipeline.input_files %}
+                <ul class="govuk-list govuk-list--bullet">
+                    {% for input_file in pipeline.input_files %}
+                        <li>
+                            {{ input_file.file_name }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="govuk-body">
+                    No files
+                </p>
+            {% endif %}
+
+            <h2 class="govuk-heading-m">
+                Pipeline runs
+            </h2>
+            <ul class="govuk-list">
+                {% for pipeline_run in pipeline.runs %}
+                    <li class="govuk-!-margin-bottom-4">
+                        {{ '✅' if pipeline_run.input_files else '🕒' }}
+                        <b>#{{ pipeline_run.number }}:</b>
+                        <b>
+                            <a href="{{ url_for('home.pipeline_run', pipeline_slug=pipeline_run.pipeline_slug, run_number=pipeline_run.number) }}"
+                               class="govuk-link">
+                                {{ pipeline_run.commit_message }}
+                            </a>
+                        </b><br>
+                        <small>
+                            Branch: <i>{{ pipeline_run.branch }}</i> &nbsp; &nbsp;<br>
+                            Commit: <i>{{ pipeline_run.commit_sha[:7] }}</i> &nbsp;
+                            (<a href="https://github.com/jamesgriff/raps/tree/{{ pipeline_run.commit_sha }}/pipelines/{{ pipeline.slug }}"
+                                      class="govuk-link">files</a>,
+                            <a href="https://github.com/jamesgriff/raps/commit/{{ pipeline_run.commit_sha }}"
+                                      class="govuk-link">diff</a>)
+                        </small>
+                    </li>
+                {% endfor %}
+            </ul>
+
+
+            <p class="govuk-body">
+                <br><br><br><br><br><br>
+                Emoji for later use: 🕒⛔✅🔗
+            </p>
+
+        </div>
+    </div>
+{% endblock %}

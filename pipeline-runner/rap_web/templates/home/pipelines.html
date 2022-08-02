@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Pipelines{% endblock %}
+
+{% block backLink %}
+    <div class="govuk-breadcrumbs">
+        <ol class="govuk-breadcrumbs__list">
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="{{ url_for('home.index') }}">
+                    Home
+                </a>
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="{{ url_for('home.branches') }}">
+                    Branches
+                </a>
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                {{ branch }}
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="{{ url_for('home.pipelines_for_branch', branch=branch) }}">
+                    Pipelines
+                </a>
+            </li>
+        </ol>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+
+            <h1 class="govuk-heading-l">
+                Pipelines
+            </h1>
+
+            <ul class="govuk-list govuk-list--bullet">
+                {% for pipeline in pipelines %}
+                    <li>
+                        <a class="govuk-link" href="{{ url_for('home.pipeline_info', branch=branch, pipeline_slug=pipeline.slug) }}">
+                            {{ pipeline.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <p class="govuk-body">
+                <a href="{{ url_for('home.new_pipeline', branch=branch) }}" class="govuk-link govuk-link--no-visited-state">
+                    Add a new pipeline
+                </a>
+            </p>
+
+        </div>
+    </div>
+{% endblock %}

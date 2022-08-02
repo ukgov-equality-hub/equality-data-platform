@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+
+{% block title %}Pipeline: {{ pipeline_run.pipeline_name }}, run {{ pipeline_run.number }}{% endblock %}
+
+{% block backLink %}
+    <div class="govuk-breadcrumbs">
+        <ol class="govuk-breadcrumbs__list">
+        <ol class="govuk-breadcrumbs__list">
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="{{ url_for('home.index') }}">
+                    Home
+                </a>
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="{{ url_for('home.branches') }}">
+                    Branches
+                </a>
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                {{ pipeline_run.branch }}
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="{{ url_for('home.pipelines_for_branch', branch=pipeline_run.branch) }}">
+                    Pipelines
+                </a>
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="{{ url_for('home.pipeline_info', branch=pipeline_run.branch, pipeline_slug=pipeline_run.pipeline_slug) }}">
+                    {{ pipeline_run.pipeline_name }}
+                </a>
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="{{ url_for('home.pipeline_run', pipeline_slug=pipeline_run.pipeline_slug, run_number=pipeline_run.number) }}">
+                    Run #{{ pipeline_run.number }}
+                </a>
+            </li>
+        </ol>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+
+            <h1 class="govuk-heading-l">
+                Pipeline: {{ pipeline_run.pipeline_name }}, run #{{ pipeline_run.number }}
+            </h1>
+
+            <p class="govuk-body">
+                Commit message: <b>{{ pipeline_run.commit_message }}</b><br>
+                Branch: <b>{{ pipeline_run.branch }}</b><br>
+                Commit: <i>{{ pipeline_run.commit_sha[:7] }}</i>
+                (<a href="https://github.com/jamesgriff/raps/tree/{{ pipeline_run.commit_sha }}/pipelines/{{ pipeline_run.pipeline_slug }}"
+                    class="govuk-link">files</a>,
+                <a href="https://github.com/jamesgriff/raps/commit/{{ pipeline_run.commit_sha }}"
+                   class="govuk-link">diff</a>)
+            </p>
+
+            <h2 class="govuk-heading-m">
+                Input files
+            </h2>
+            {% if pipeline_run.input_files %}
+                <ul class="govuk-list govuk-list--bullet">
+                    {% for input_file in pipeline_run.input_files %}
+                        <li>
+                            <a href="{{ url_for('home.download_pipeline_input_file', pipeline_slug=pipeline_run.pipeline_slug, run_number=pipeline_run.number, file_name=input_file.file_name) }}"
+                               class="govuk-link">
+                                {{ input_file.file_name }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="govuk-body">
+                    No files
+                </p>
+            {% endif %}
+
+            {% if pipeline_run.any_run_steps %}
+                {% for step in pipeline_run.run_steps %}
+                    <h2 class="govuk-heading-m">
+                        Step {{ step.number }}
+                    </h2>
+
+                    <div class="govuk-!-padding-left-4">
+                        <h3 class="govuk-heading-s govuk-!-margin-bottom-0">
+                            Script
+                        </h3>
+                        <p class="govuk-body">
+                            <a href="https://github.com/jamesgriff/raps/tree/{{ pipeline_run.commit_sha }}/pipelines/{{ pipeline_run.pipeline_slug }}/{{ step.url_safe_filename }}"
+                               class="govuk-link">
+                                {{ step.number }} - {{ step.name }}.{{ step.file_extension }}
+                            </a>
+                        </p>
+
+                        <h3 class="govuk-heading-s govuk-!-margin-bottom-0">
+                            Console log output
+                        </h3>
+                        <div class="govuk-!-margin-bottom-4" style="font-family: monospace; background-color: #e8e8e8; padding: 10px; border-radius: 5px; font-size: 16px; white-space: pre;"
+                        >{{ step.console_output }}</div>
+
+                        <h3 class="govuk-heading-s govuk-!-margin-bottom-0">
+                            Output files
+                        </h3>
+                        <details class="govuk-details govuk-!-margin-bottom-2" data-module="govuk-details" open>
+                            <summary class="govuk-details__summary">
+                                <span class="govuk-details__summary-text">
+                                    New / changed
+                                </span>
+                            </summary>
+                                <div class="govuk-details__text">
+                                    {% if step.changed_files %}
+                                        <ul class="govuk-list govuk-list--bullet">
+                                            {% for output_file in step.changed_files %}
+                                                <li>
+                                                    <a href="{{ url_for('home.download_pipeline_run_file', pipeline_slug=pipeline_run.pipeline_slug, run_number=pipeline_run.number, step_number=step.number, file_name=output_file.file_name) }}"
+                                                       class="govuk-link">
+                                                        {{ output_file.file_name }}
+                                                    </a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% else %}
+                                        No unchanged files
+                                    {% endif %}
+                                </div>
+                        </details>
+                        <details class="govuk-details" data-module="govuk-details">
+                            <summary class="govuk-details__summary">
+                                <span class="govuk-details__summary-text">
+                                    Unchanged / deleted
+                                </span>
+                            </summary>
+                                <div class="govuk-details__text">
+                                    {% if step.unchanged_files %}
+                                        <ul class="govuk-list govuk-list--bullet">
+                                            {% for output_file in step.unchanged_files %}
+                                                <li>
+                                                    <a href="{{ url_for('home.download_pipeline_run_file', pipeline_slug=pipeline_run.pipeline_slug, run_number=pipeline_run.number, step_number=step.number, file_name=output_file.file_name) }}"
+                                                       class="govuk-link">
+                                                        {{ output_file.file_name }}
+                                                    </a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% else %}
+                                        No unchanged files
+                                    {% endif %}
+                                </div>
+                        </details>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h2 class="govuk-heading-m">
+                    Steps
+                </h2>
+                <p class="govuk-body">
+                    No steps in this run
+                </p>
+            {% endif %}
+
+            <div class="govuk-button-group">
+                <a href="{{ url_for('home.publish_files') }}"
+                   class="govuk-button" data-module="govuk-button">
+                    Publish these files to the Data Store
+                </a>
+            </div>
+
+            <p class="govuk-body">
+                <br><br><br><br><br><br>
+                Emoji for later use: 🕒⛔✅🔗
+            </p>
+
+        </div>
+    </div>
+{% endblock %}

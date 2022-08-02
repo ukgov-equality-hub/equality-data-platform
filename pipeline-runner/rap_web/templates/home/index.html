@@ -7,11 +7,29 @@
         <div class="govuk-grid-column-two-thirds">
 
             <h1 class="govuk-heading-l">
-                RAP Runner
+                Data Store / RAP Runner
             </h1>
             <p class="govuk-body">
-                This is the website of the RAP Runner.<br>
+                This is the website of the Data Store / RAP Runner.<br>
                 It is currently in development.
+            </p>
+
+            <h2 class="govuk-heading-m">
+                Data Store
+            </h2>
+            <p class="govuk-body">
+                <a href="{{ url_for('home.data_store') }}" class="govuk-link">
+                    Files
+                </a>
+            </p>
+
+            <h2 class="govuk-heading-m">
+                RAP Runner
+            </h2>
+            <p class="govuk-body">
+                <a href="{{ url_for('home.branches') }}" class="govuk-link">
+                    Branches
+                </a>
             </p>
 
         </div>

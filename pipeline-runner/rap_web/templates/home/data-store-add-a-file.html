@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}Add a file{% endblock %}
+
+{% block backLink %}
+    <div class="govuk-breadcrumbs">
+        <ol class="govuk-breadcrumbs__list">
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="{{ url_for('home.index') }}">
+                    Home
+                </a>
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="{{ url_for('home.data_store') }}">
+                    Data Store files
+                </a>
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="#">
+                    School teacher workforce survey
+                </a>
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="{{ url_for('home.data_store_file_group_1_2021') }}">
+                    2021
+                </a>
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="#">
+                    Add a file
+                </a>
+            </li>
+        </ol>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+
+            <h1 class="govuk-heading-l">
+                Add a file
+                <span class="govuk-caption-xl">
+                    School teacher workforce survey - 2021
+                </span>
+            </h1>
+
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset" aria-describedby="contact-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        <h2 class="govuk-fieldset__heading">
+                            How did you obtain the file?
+                        </h2>
+                    </legend>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="contact" name="contact" type="radio" value="email" data-aria-controls="conditional-contact">
+                            <label class="govuk-label govuk-radios__label" for="contact">
+                                I downloaded it from a publicly-accessible website
+                            </label>
+                        </div>
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-contact">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label" for="contact-by-email">
+                                    URL of file
+                                </label>
+                                <input class="govuk-input" id="contact-by-email" name="contact-by-email" type="email" spellcheck="false" autocomplete="email">
+                            </div>
+                            <div class="govuk-checkboxes">
+                                <div class="govuk-checkboxes__item">
+                                    <input class="govuk-checkboxes__input" id="waste" name="waste" type="checkbox" value="carcasses">
+                                    <label class="govuk-label govuk-checkboxes__label" for="waste">
+                                        Monitor this URL and email me if the file changes
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="contact-2" name="contact" type="radio" value="phone">
+                        <label class="govuk-label govuk-radios__label" for="contact-2">
+                            Something else
+                        </label>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-button-group">
+                <a class="govuk-button" href="{{ url_for('home.data_store_file_group_1_2021') }}">
+                    Continue
+                </a>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %}Use files in pipeline{% endblock %}
+
+{% block backLink %}
+    <div class="govuk-breadcrumbs">
+        <ol class="govuk-breadcrumbs__list">
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="{{ url_for('home.index') }}">
+                    Home
+                </a>
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="{{ url_for('home.data_store') }}">
+                    Data Store files
+                </a>
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="#">
+                    School teacher workforce survey
+                </a>
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="{{ url_for('home.data_store_file_group_1_2021') }}">
+                    2021
+                </a>
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                Publish files
+            </li>
+        </ol>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+
+            <h1 class="govuk-heading-l">
+                Publish files to Data Store
+                <span class="govuk-caption-xl">
+                    School teacher workforce survey - 2021
+                </span>
+            </h1>
+
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                        <h1 class="govuk-fieldset__heading">
+                            Which files do you want to publish
+                        </h1>
+                    </legend>
+                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="waste" name="waste" type="checkbox" value="carcasses">
+                            <label class="govuk-label govuk-checkboxes__label" for="waste">
+                                school-teacher-workforce.csv
+                            </label>
+                        </div>
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="waste-2" name="waste" type="checkbox" value="mines">
+                            <label class="govuk-label govuk-checkboxes__label" for="waste-2">
+                                school-teacher-workforce-1.csv
+                            </label>
+                        </div>
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input" id="waste-3" name="waste" type="checkbox" value="farm">
+                            <label class="govuk-label govuk-checkboxes__label" for="waste-3">
+                                school-teacher-workforce-2.csv
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <p class="govuk-body">
+                <a href="{{ url_for('home.data_store_file_group_1_2021', branch='main', pipeline_slug='my-first-rap') }}" class="govuk-button" data-module="govuk-button">
+                    Continue
+                </a>
+            </p>
+
+        </div>
+    </div>
+{% endblock %}

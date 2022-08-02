@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% import "govuk-design-system-templates/text-input.html" as textInput %}
+{% import "govuk-design-system-templates/select-input.html" as selectInput %}
+
+{% block title %}Add a new step{% endblock %}
+
+{% block backLink %}
+    <div class="govuk-breadcrumbs">
+        <ol class="govuk-breadcrumbs__list">
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="{{ url_for('home.index') }}">
+                    Home
+                </a>
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="{{ url_for('home.branches') }}">
+                    Branches
+                </a>
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                {{ branch }}
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="{{ url_for('home.pipelines_for_branch', branch=branch) }}">
+                    Pipelines
+                </a>
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="{{ url_for('home.pipeline_info', branch=branch, pipeline_slug=pipeline.slug) }}">
+                    {{ pipeline.name }}
+                </a>
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="{{ url_for('home.new_step', branch=branch, pipeline_slug=pipeline.slug) }}">
+                    Add a new step
+                </a>
+            </li>
+        </ol>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+
+            <h1 class="govuk-heading-l">
+                Add a new step
+            </h1>
+
+            <form method="POST" action="#">
+                {{ form.csrf_token }}
+
+                {{ textInput.renderFor(
+                    form,
+                    fieldName='step_name',
+                    textInputForOptions={
+                        'labelOptions': { 'htmlOrText': 'Step name' },
+                        'classes': 'govuk-input--width-20'
+                    }
+                ) }}
+
+                <button class="govuk-button" data-module="govuk-button">
+                    Continue
+                </button>
+            </form>
+
+        </div>
+    </div>
+{% endblock %}
