@@ -14,3 +14,16 @@ def EnterpriseTaskforcePasswordRequired(f):
         return local_redirect(url_for('login.login_get', return_to=local_url))
 
     return decorated_function
+
+
+def EnterpriseTaskforce2PasswordRequired(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'enterprise_taskforce_2_password' in session and session['enterprise_taskforce_2_password'] is not None:
+            if session['enterprise_taskforce_2_password'] == current_app.config['ENTERPRISE_TASKFORCE_2_PASSWORD']:
+                return f(*args, **kwargs)
+
+        local_url = request.url[(len(request.host_url) - 1):]
+        return local_redirect(url_for('login.login_get', return_to=local_url))
+
+    return decorated_function

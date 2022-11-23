@@ -27,6 +27,10 @@ def login_post():
             session['enterprise_taskforce_password'] = current_app.config['ENTERPRISE_TASKFORCE_PASSWORD']
             return local_redirect(request.args['return_to'])
 
+        elif form.password.data == current_app.config['ENTERPRISE_TASKFORCE_2_PASSWORD']:
+            session['enterprise_taskforce_2_password'] = current_app.config['ENTERPRISE_TASKFORCE_2_PASSWORD']
+            return local_redirect(request.args['return_to'])
+
         else:
             form.password.errors.append('Enter the correct password')
 
