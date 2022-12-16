@@ -52,6 +52,7 @@ def enterprise_taskforce_2_homepage(page_path: str = ''):
         page_path = 'index.html'
     if page_path.endswith('/'):
         page_path = page_path + 'index.html'
+    print(f'page_path: {page_path}', flush=True)
 
     file_bytes = s3_client.download_object(page_path)
     (mime_type, encoding) = mimetypes.guess_type(page_path)
