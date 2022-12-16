@@ -48,6 +48,10 @@ def enterprise_taskforce_2_homepage(page_path: str = ''):
     s3_instance_name = f"{space_name}-filestorage-enterprise-taskforce-2"
     s3_client = AwsS3Client(instance_name=s3_instance_name)
 
+    dir = '/output/enterprise-taskforce-no10-dashboard/'
+    if page_path.startswith(dir):
+        page_path = page_path[len(dir): ]
+
     if page_path is None or page_path == '':
         page_path = 'index.html'
     if page_path.endswith('/'):
