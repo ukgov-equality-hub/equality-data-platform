@@ -18,7 +18,7 @@ def enterprise_taskforce_homepage_redirect():
     return local_redirect(url_for('output.enterprise_taskforce_homepage', page_path=''))
 
 
-@output.route('/output/enterprise-taskforce/', defaults={'page_path': None}, methods=['GET'])
+@output.route('/output/enterprise-taskforce/', defaults={'page_path': ''}, methods=['GET'])
 @output.route('/output/enterprise-taskforce/<page_path>', methods=['GET'])
 @EnterpriseTaskforcePasswordRequired
 def enterprise_taskforce_homepage(page_path: str = ''):
@@ -40,8 +40,8 @@ def enterprise_taskforce_homepage(page_path: str = ''):
     )
 
 
-@output.route('/output/enterprise-taskforce-no10-dashboard/', defaults={'page_path': None}, methods=['GET'])
-@output.route('/output/enterprise-taskforce-no10-dashboard/<page_path>', methods=['GET'])
+@output.route('/output/enterprise-taskforce-no10-dashboard/', defaults={'page_path': ''}, methods=['GET'])
+@output.route('/output/enterprise-taskforce-no10-dashboard/<path:page_path>', methods=['GET'])
 @EnterpriseTaskforce2PasswordRequired
 def enterprise_taskforce_2_homepage(page_path: str = ''):
     space_name = ConfigHelper.get_vcap_application().space_name
@@ -60,4 +60,3 @@ def enterprise_taskforce_2_homepage(page_path: str = ''):
         file_bytes,
         mimetype=mime_type
     )
-
