@@ -18,9 +18,10 @@ def enterprise_taskforce_homepage_redirect():
     return local_redirect(url_for('output.enterprise_taskforce_homepage', page_path=''))
 
 
-def append_warning(html):
+def append_warning(html, warning):
     html = html.decode()
-    html = html.replace('</body>', '<div style="display: none; position: fixed; bottom: 0; width: 100%; padding: 20px; background: rgba(255, 0, 0, .2); text-align: center;"><p style="font-weight: bold;">OFFICIAL SENSITIVE do not forward or use externally without written permission</p><p>data extracted from Beauhurst December 2022</p></div></body>')
+    if warning: warning = f'<p>{warning}</p>'
+    html = html.replace('</body>', f'<div style="position: fixed; bottom: 0; width: 100%; background: rgba(255, 0, 0, .2); text-align: center; font-family: \'GDS Transport\', Arial, sans-serif;"><p style="font-weight: bold; font-size: 18px;">OFFICIAL SENSITIVE do not forward or use externally without written permission</p>{warning}</div></body>')
     return str.encode(html)
 
 
@@ -41,7 +42,7 @@ def enterprise_taskforce_homepage(page_path: str = ''):
     (mime_type, encoding) = mimetypes.guess_type(page_path)
 
     return Response(
-        append_warning(file_bytes),
+        append_warning(file_bytes, 'data extracted from Beauhurst December 2022'),
         mimetype=mime_type
     )
 
@@ -68,6 +69,6 @@ def enterprise_taskforce_2_homepage(page_path: str = ''):
     (mime_type, encoding) = mimetypes.guess_type(page_path)
 
     return Response(
-        append_warning(file_bytes),
+        append_warning(file_bytes, 'data extracted from Beauhurst December 2022'),
         mimetype=mime_type
     )
