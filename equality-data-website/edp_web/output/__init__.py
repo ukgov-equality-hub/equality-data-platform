@@ -18,6 +18,10 @@ def enterprise_taskforce_homepage_redirect():
     return local_redirect(url_for('output.enterprise_taskforce_homepage', page_path=''))
 
 
+def append_warning(html):
+    return f'${html}<div style="display: none; position: fixed; bottom: 0; width: 100%; height: 30px; padding: 20px; text-align: center; font-weight: bold;">OFFICIAL</div>'
+
+
 @output.route('/output/enterprise-taskforce/', defaults={'page_path': ''}, methods=['GET'])
 @output.route('/output/enterprise-taskforce/<page_path>', methods=['GET'])
 @EnterpriseTaskforcePasswordRequired
@@ -62,6 +66,6 @@ def enterprise_taskforce_2_homepage(page_path: str = ''):
     (mime_type, encoding) = mimetypes.guess_type(page_path)
 
     return Response(
-        file_bytes,
+        append_warning(file_bytes),
         mimetype=mime_type
     )
