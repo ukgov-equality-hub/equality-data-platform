@@ -21,7 +21,7 @@ def enterprise_taskforce_homepage_redirect():
 def append_warning(html, warning):
     html = html.decode()
     if warning: warning = f'<p>{warning}</p>'
-    html = html.replace('</body>', f'<div style="position: fixed; bottom: 0; width: 100%; background: rgba(255, 0, 0, .2); text-align: center; font-family: \'GDS Transport\', Arial, sans-serif;"><p style="font-weight: bold; font-size: 18px;">OFFICIAL SENSITIVE do not forward or use externally without written permission</p>{warning}</div></body>')
+    html = html.replace('</body>', f'<div style="position: fixed; bottom: 0; width: 100%; background: rgba(0, 0, 0, .6); color: #fff; text-align: center; font-family: \'GDS Transport\', Arial, sans-serif;"><p style="font-weight: bold; font-size: 18px;">OFFICIAL SENSITIVE do not forward or use externally without written permission</p>{warning}</div></body>')
     return str.encode(html)
 
 
