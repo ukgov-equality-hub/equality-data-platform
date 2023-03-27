@@ -39,7 +39,7 @@ def enterprise_taskforce_homepage(page_path: str = ''):
     (mime_type, encoding) = mimetypes.guess_type(page_path)
 
     return Response(
-        file_bytes,
+        append_warning(file_bytes),
         mimetype=mime_type
     )
 
