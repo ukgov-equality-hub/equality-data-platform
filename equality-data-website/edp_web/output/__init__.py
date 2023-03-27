@@ -19,7 +19,7 @@ def enterprise_taskforce_homepage_redirect():
 
 
 def append_warning(html):
-    return str(html).replace('</body>', '<div style="display: none; position: fixed; bottom: 0; width: 100%; height: 30px; padding: 20px; text-align: center; font-weight: bold;">OFFICIAL</div></body>')
+    return html.replace('</body>', '<div style="display: none; position: fixed; bottom: 0; width: 100%; height: 30px; padding: 20px; text-align: center; font-weight: bold;">OFFICIAL</div></body>')
 
 
 @output.route('/output/enterprise-taskforce/', defaults={'page_path': ''}, methods=['GET'])
