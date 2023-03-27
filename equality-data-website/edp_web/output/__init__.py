@@ -19,7 +19,9 @@ def enterprise_taskforce_homepage_redirect():
 
 
 def append_warning(html):
-    return html.replace('</body>', '<div style="display: none; position: fixed; bottom: 0; width: 100%; height: 30px; padding: 20px; text-align: center; font-weight: bold;">OFFICIAL</div></body>')
+    html = html.decode()
+    html = html.replace('</body>', '<div style="display: none; position: fixed; bottom: 0; width: 100%; padding: 20px; background: rgba(255, 0, 0, .2); text-align: center;"><p style="font-weight: bold;">OFFICIAL SENSITIVE do not forward or use externally without written permission</p><p>data extracted from Beauhurst December 2022</p></div></body>')
+    return str.encode(html)
 
 
 @output.route('/output/enterprise-taskforce/', defaults={'page_path': ''}, methods=['GET'])
