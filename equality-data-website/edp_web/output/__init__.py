@@ -20,8 +20,10 @@ def enterprise_taskforce_homepage_redirect():
 
 def append_warning(html, warning):
     html = html.decode()
-    if warning: warning = f'<p>{warning}</p>'
-    html = html.replace('</body>', f'<div style="position: fixed; bottom: 0; width: 100%; background: rgba(0, 0, 0, .6); color: #fff; text-align: center; font-family: \'GDS Transport\', Arial, sans-serif;"><p style="font-weight: bold; font-size: 18px;">OFFICIAL SENSITIVE do not forward or use externally without written permission</p>{warning}</div></body>')
+    if warning: warning = f'<span style="font-size: 14px; font-weight: normal; padding-left: 30px;">{warning}</span>'
+    close = '<a href="javascript:;" style="position: absolute; right: 10px; font-weight: normal; color: #fff;" onclick="document.getElementById(\'warning\').style.display = \'none\'">Close</a>'
+
+    html = html.replace('</body>', f'<div id="warning" style="position: fixed; bottom: 0; width: 100%; background: rgba(0, 0, 0, .6); color: #fff; text-align: center; font-family: \'GDS Transport\', Arial, sans-serif;"><p style="font-weight: bold; font-size: 18px;">OFFICIAL SENSITIVE do not forward or use externally without written permission{warning}{close}</p></div></body>')
     return str.encode(html)
 
 
