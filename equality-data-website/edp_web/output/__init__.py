@@ -44,7 +44,7 @@ def enterprise_taskforce_homepage(page_path: str = ''):
     (mime_type, encoding) = mimetypes.guess_type(page_path)
 
     return Response(
-        append_warning(file_bytes, 'data extracted from Beauhurst December 2022'),
+        append_warning(file_bytes, 'Data extracted from Beauhurst December 2022'),
         mimetype=mime_type
     )
 
@@ -71,6 +71,6 @@ def enterprise_taskforce_2_homepage(page_path: str = ''):
     (mime_type, encoding) = mimetypes.guess_type(page_path)
 
     return Response(
-        append_warning(file_bytes, 'data extracted from Beauhurst December 2022'),
+        append_warning(file_bytes, 'Data extracted from Beauhurst December 2022'),
         mimetype=mime_type
     )
