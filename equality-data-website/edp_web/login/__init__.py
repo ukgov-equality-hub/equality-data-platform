@@ -23,12 +23,12 @@ def login_post():
     form = PasswordForm()
 
     if form.validate():
-        if form.password.data == current_app.config['ENTERPRISE_TASKFORCE_PASSWORD']:
-            session['enterprise_taskforce_password'] = current_app.config['ENTERPRISE_TASKFORCE_PASSWORD']
+        if form.password.data == current_app.config['ENTERPRISE_TASKFORCE_PASSWORD'] and request.args['return_to'] == '/output/enterprise-taskforce/':
+            session['enterprise_taskforce_password'] = form.password.data
             return local_redirect(request.args['return_to'])
 
-        elif form.password.data == current_app.config['ENTERPRISE_TASKFORCE_2_PASSWORD']:
-            session['enterprise_taskforce_2_password'] = current_app.config['ENTERPRISE_TASKFORCE_2_PASSWORD']
+        elif form.password.data == current_app.config['ENTERPRISE_TASKFORCE_2_PASSWORD'] and request.args['return_to'] == '/output/enterprise-taskforce-no10-dashboard/':
+            session['enterprise_taskforce_2_password'] = form.password.data
             return local_redirect(request.args['return_to'])
 
         else:
@@ -38,4 +38,3 @@ def login_post():
         'login/login.html',
         form=form
     )
-
