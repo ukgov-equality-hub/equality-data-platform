@@ -1,4 +1,4 @@
-name: 'Deploy (production)'
+name: 'Terraform, Build, Deploy (production)'
 
 on:
   push:
@@ -8,10 +8,20 @@ on:
 concurrency: ${{ github.workflow }}  # Prevents more than one instance of this workflow running at the same time
 
 jobs:
-  deploy:
+  terraform_build_deploy:
     uses: ./.github/workflows/_deploy-shared.yml
     with:
-      environment: 'production'
+      GITHUB_ACTIONS_ENVIRONMENT: Prod
+      TERRAFORM_SERVICE_NAME: edp_web
+      TERRAFORM_SERVICE_NAME_HYPHENS: edp-web
+      TERRAFORM_ENVIRONMENT_NAME: Prod
+      TERRAFORM_STATE_BUCKET: uk-gov-equality-hub-terraform-state-bucket
+      TERRAFORM_STATE_FILE: equality-data-platform_prod.tfstate
+      TERRAFORM_TFVARS_FILE: prod.tfvars
     secrets:
-      cf_username: ${{ secrets.CF_USERNAME }}
-      cf_password: ${{ secrets.CF_PASSWORD }}
+      TERRAFORM_AWS_ACCESS_KEY_ID: ${{ secrets.TERRAFORM_AWS_ACCESS_KEY_ID }}
+      TERRAFORM_AWS_SECRET_ACCESS_KEY: ${{ secrets.TERRAFORM_AWS_SECRET_ACCESS_KEY }}
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      MAINTENANCE_MODE: ${{ secrets.MAINTENANCE_MODE }}
+      BASIC_AUTH_USERNAME: ${{ secrets.BASIC_AUTH_USERNAME }}
+      BASIC_AUTH_PASSWORD: ${{ secrets.BASIC_AUTH_PASSWORD }}
