@@ -1,6 +1,7 @@
-name: 'Deploy (dev)'
+name: 'Terraform, Build, Deploy (dev)'
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -8,10 +9,22 @@ on:
 concurrency: ${{ github.workflow }}  # Prevents more than one instance of this workflow running at the same time
 
 jobs:
-  deploy:
+  terraform_build_deploy:
     uses: ./.github/workflows/_deploy-shared.yml
     with:
-      environment: 'dev'
+      GITHUB_ACTIONS_ENVIRONMENT: Dev
+      TERRAFORM_SERVICE_NAME: edp_web
+      TERRAFORM_SERVICE_NAME_HYPHENS: edp-web
+      TERRAFORM_ENVIRONMENT_NAME: Dev
+      TERRAFORM_STATE_BUCKET: uk-gov-equality-hub-terraform-state-bucket
+      TERRAFORM_STATE_FILE: equality-data-platform_dev.tfstate
+      TERRAFORM_TFVARS_FILE: dev.tfvars
     secrets:
-      cf_username: ${{ secrets.CF_USERNAME }}
-      cf_password: ${{ secrets.CF_PASSWORD }}
+      TERRAFORM_AWS_ACCESS_KEY_ID: ${{ secrets.TERRAFORM_AWS_ACCESS_KEY_ID }}
+      TERRAFORM_AWS_SECRET_ACCESS_KEY: ${{ secrets.TERRAFORM_AWS_SECRET_ACCESS_KEY }}
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      MAINTENANCE_MODE: ${{ secrets.MAINTENANCE_MODE }}
+      BASIC_AUTH_USERNAME: ${{ secrets.BASIC_AUTH_USERNAME }}
+      BASIC_AUTH_PASSWORD: ${{ secrets.BASIC_AUTH_PASSWORD }}
+      ENTERPRISE_TASKFORCE_PASSWORD: ${{ secrets.ENTERPRISE_TASKFORCE_PASSWORD }}
+      ENTERPRISE_TASKFORCE_2_PASSWORD: ${{ secrets.ENTERPRISE_TASKFORCE_2_PASSWORD }}
