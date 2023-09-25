@@ -2,23 +2,16 @@ import logging
 import boto3
 from botocore.exceptions import ClientError
 from botocore.client import Config
-from edp_web.utils.config_helper import ConfigHelper
 
 
 class AwsS3Client:
-    def __init__(self, instance_name: str):
-        buckets = ConfigHelper.get_vcap_services().aws_s3_bucket
-        bucket_with_name = next(filter(lambda bucket: bucket.instance_name == instance_name, buckets), None)
-        creds = bucket_with_name.credentials
-
+    def __init__(self, bucket_name: str):
         self.s3 = boto3.client(
             's3',
-            aws_access_key_id=creds.aws_access_key_id,
-            aws_secret_access_key=creds.aws_secret_access_key,
-            region_name=creds.aws_region,
+            region_name="eu-west-2",
             config=Config(signature_version='s3v4')
         )
-        self.bucket_name = creds.bucket_name
+        self.bucket_name = bucket_name
 
 
     def download_object(self, object_name):
