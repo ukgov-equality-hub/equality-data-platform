@@ -437,8 +437,20 @@ resource "aws_elastic_beanstalk_environment" "main_app_elastic_beanstalk_environ
 
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "ENTERPRISE_TASKFORCE_S3_BUCKET"
+    value     = aws_s3_bucket.enterprise_taskforce_data_pack_s3_bucket.id
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
     name      = "ENTERPRISE_TASKFORCE_PASSWORD"
     value     = var.ENTERPRISE_TASKFORCE_PASSWORD
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "ENTERPRISE_TASKFORCE_2_S3_BUCKET"
+    value     = aws_s3_bucket.enterprise_taskforce_no10_dashboard_s3_bucket.id
   }
 
   setting {

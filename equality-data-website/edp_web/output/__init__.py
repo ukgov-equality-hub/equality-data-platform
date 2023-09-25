@@ -1,6 +1,6 @@
 import mimetypes
+import os
 from flask import Blueprint, url_for, Response
-from edp_web.utils.config_helper import ConfigHelper
 from edp_web.utils.decorators import EnterpriseTaskforcePasswordRequired, EnterpriseTaskforce2PasswordRequired
 from edp_web.utils.redirect import local_redirect
 from edp_web.utils.external_services.aws_s3_client import AwsS3Client
@@ -31,9 +31,7 @@ def append_warning(html, warning):
 @output.route('/output/enterprise-taskforce/<page_path>', methods=['GET'])
 @EnterpriseTaskforcePasswordRequired
 def enterprise_taskforce_homepage(page_path: str = ''):
-    space_name = ConfigHelper.get_vcap_application().space_name
-    s3_instance_name = f"{space_name}-filestorage-enterprise-taskforce"
-    s3_client = AwsS3Client(instance_name=s3_instance_name)
+    s3_client = AwsS3Client(bucket_name=os.getenv('ENTERPRISE_TASKFORCE_S3_BUCKET'))
 
     if page_path is None or page_path == '':
         page_path = 'index.html'
@@ -53,9 +51,7 @@ def enterprise_taskforce_homepage(page_path: str = ''):
 @output.route('/output/enterprise-taskforce-no10-dashboard/<path:page_path>', methods=['GET'])
 @EnterpriseTaskforce2PasswordRequired
 def enterprise_taskforce_2_homepage(page_path: str = ''):
-    space_name = ConfigHelper.get_vcap_application().space_name
-    s3_instance_name = f"{space_name}-filestorage-enterprise-taskforce-2"
-    s3_client = AwsS3Client(instance_name=s3_instance_name)
+    s3_client = AwsS3Client(bucket_name=os.getenv('ENTERPRISE_TASKFORCE_2_S3_BUCKET'))
 
     dir = '/output/enterprise-taskforce-no10-dashboard/'
     if page_path.startswith(dir):
