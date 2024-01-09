@@ -59,7 +59,7 @@ resource "aws_cloudfront_distribution" "distribution_for_elastic_beanstalk_envir
 
   default_cache_behavior {
     cache_policy_id = aws_cloudfront_cache_policy.cloudfront_cache_policy_for_elastic_beanstalk.id
-    allowed_methods = ["GET", "HEAD"]
+    allowed_methods = ["GET", "HEAD", "OPTIONS", "POST", "PUT", "PATCH", "DELETE"]
     cached_methods = ["GET", "HEAD"]
     target_origin_id = local.distribution_for_elastic_beanstalk_environment__origin_id
     viewer_protocol_policy = "redirect-to-https"
